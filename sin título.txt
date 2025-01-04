@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta para Mi Novia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Fondo general de la página */
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8d7e0; /* Fondo rosado claro de la carta */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #d63b87; /* Color rosado para la cuenta regresiva */
+        }
+        .btn {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #f06292; /* Fondo rosado del botón */
+            color: white; /* Color del texto del botón */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none; /* El botón estará oculto hasta el final de la cuenta regresiva */
+        }
+        .btn:hover {
+            background-color: #e91e63; /* Color rosado más oscuro cuando pasa el mouse */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="letter">
+        <p><strong>Mi amor,</strong></p>
+        <p>Hoy quiero expresarte cuánto significas para mí. No hay palabras suficientes para describir lo afortunado/a que me siento de tenerte en mi vida. Cada momento contigo es único, y cada día me doy cuenta de lo increíble que eres. Te amo con todo mi ser.</p>
+        <p>Gracias por ser tú, por tu amor, tu apoyo y tu dedicación. Eres la razón por la que sonrío todos los días, y siempre estaré aquí para ti.</p>
+        <p>espere mi reina tiii,</p>
+        <p><strong>teamo mi amor recuerdalo ti </strong></p>
+    </div>
+
+    <div class="countdown" id="countdown"></div>
+    
+    <!-- Botón de descarga del PDF (inicialmente oculto) -->
+    <button class="btn" id="downloadBtn" onclick="downloadPDF()">Descargar Carta en PDF</button>
+</div>
+
+<script>
+    // Hora de envío de la carta (6:00 PM)
+    var hora_envio = new Date();
+    hora_envio.setHours(18, 0, 0, 0);  // Ajustar la hora a las 6:00 PM
+
+    // Hora de objetivo: 12:00 AM del día siguiente
+    var hora_objetivo = new Date(hora_envio);
+    hora_objetivo.setHours(24, 0, 0, 0); // Establecer la hora de objetivo a las 12:00 AM
+
+    // Calcular la cuenta regresiva
+    var countdownDate = hora_objetivo.getTime();
+
+    var countdownFunction = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countdownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML = "Cuenta regresiva: " + days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(countdownFunction);
+            document.getElementById("countdown").innerHTML = "¡Es momento de descargar el PDF!";
+            document.getElementById("downloadBtn").style.display = "block"; // Mostrar el botón
+        }
+    }, 1000);
+
+    // Función para descargar el PDF
+    function downloadPDF() {
+        // Aquí pones tu URL de descarga directa del archivo PDF
+        var pdfUrl = 'https://drive.google.com/file/d/1PwYMGK5QC_C7HN543b8Ol7CLaySSMYbH/view?usp=drivesdk'; // Reemplaza con tu URL de Google Drive
+
+        // Crear un enlace invisible y simular un clic para la descarga
+        var link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'carta_personalizada.pdf'; // El nombre del archivo cuando se descargue
+        link.click();
+    }
+</script>
+
+</body>
+</html>
